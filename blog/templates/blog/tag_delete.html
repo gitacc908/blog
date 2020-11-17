@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% block title %}
+Tag delete
+{% endblock %}
+
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	<p>Are you sure you want to delete {{ obj.title|title }} tag?</p>
+	<a href="{% url 'tags' %}" class="btn btn-outline-secondary">Cancel</a>
+	<button class="btn btn-outline-danger" type="submit">Delete</button>
+</form>
+{% endblock %}

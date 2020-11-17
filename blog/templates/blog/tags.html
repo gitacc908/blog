@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block title %}
+Tags
+{% endblock %}
+
+{% block content %}
+{% for tag in tags %}
+<h1><a href="{{ tag.get_absolute_url }}">#{{ tag.title }}</a></h1>
+<p><a href="{% url 'tag_update' slug=tag.slug %}" class="btn btn-outline-secondary">tag update</a></p>
+<p><a href="{% url 'tag_delete' slug=tag.slug %}" class="btn btn-outline-danger">tag delete</a></p>
+{% endfor%}
+{% endblock %}

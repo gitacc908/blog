@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %}
+{% extends 'base_all.html' %}
 {% block title %}
 Tags
 {% endblock %}
@@ -8,11 +8,9 @@ Tags
 
 
 {% for post in tag.posts.all %}
-<div class="card border-dark mb-3 mt-3" style="max-width: 540px;">
+
+<div class="container card border-dark mb-3 mt-3" style="max-width: 540px;">
   <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="..." class="card-img rounded" alt="...">
-    </div>
     <div class="col-md-8">
       <div class="card-body">
         <a href="{{ post.get_absolute_url }}">

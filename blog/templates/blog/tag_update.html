@@ -1,16 +1,17 @@
-{% extends 'blog/base.html' %}
+{% extends 'base_all.html' %}
+{% load crispy_forms_tags %}
 {% block title %}
 Tag Update
 {% endblock %}
 
 
 {% block content %}
-<form method="post">
+<form method="post" class="container">
 	{% csrf_token %}
-	<div class="form-group mt-4">
-		{{ bound_form }}
+	<div class="form-group mt-4 mb-4">
+		{{ bound_form|crispy }}
 	</div>
-	<button type="submit" class="btn btn-outline-primary">Update Tag</button>
+	<button type="submit" class="btn btn-outline-primary mb-4">Update Tag</button>
 </form>
 
 {% endblock %}

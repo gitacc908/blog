@@ -1,12 +1,14 @@
-{% extends 'blog/base.html' %}
+{% extends 'base_all.html' %}
 
 {% block title %}Detail View{% endblock %}
 
 {% block content %}
-<h3>{{ post.title }}</h3>
-<p>{{ post.body}}</p>
-<p>PostBodyUsing color to add meaning only provides a visual indication, which will not be conveyed to users of assistive technologies</p>
-{{ post.timestamp }}
-<p><a href="{% url 'blog_delete' slug=post.slug %}" class="btn btn-outline-danger">delete post</a></p>
-
+<div class="blog-post container">
+            <h2 class="blog-post-title">{{ post.title }}</h2>
+            <p><a href="{% url 'blog_update' slug=post.slug %}" class="btn btn-light">Edit post</a></p>
+            <p class="blog-post-meta">{{ post.timestamp }}</p>
+            <hr>
+            <p>{{ post.body}}.</p>
+            <p><a href="{% url 'blog_delete' slug=post.slug %}" class="btn btn-outline-danger">delete post</a></p>
+</div><!-- /.blog-post -->
 {% endblock %}

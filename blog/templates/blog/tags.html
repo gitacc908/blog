@@ -1,12 +1,25 @@
-{% extends 'blog/base.html' %}
+{% extends 'base_all.html' %}
+
 {% block title %}
 Tags
 {% endblock %}
 
 {% block content %}
-{% for tag in tags %}
-<h1><a href="{{ tag.get_absolute_url }}">#{{ tag.title }}</a></h1>
-<p><a href="{% url 'tag_update' slug=tag.slug %}" class="btn btn-outline-secondary">tag update</a></p>
-<p><a href="{% url 'tag_delete' slug=tag.slug %}" class="btn btn-outline-danger">tag delete</a></p>
-{% endfor%}
+
+<div class="container">
+	<div class="row padded">
+		{% for tag in tags %}
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+           
+            <h1><a href="{{ tag.get_absolute_url }}">#{{ tag.title }}</a></h1>
+			<p><a href="{% url 'tag_update' slug=tag.slug %}" class="btn btn-outline-secondary ml-5">tag update</a></p>
+			<p><a href="{% url 'tag_delete' slug=tag.slug %}" class="btn btn-outline-danger ml-5 ">tag delete</a></p>
+            
+          </div>
+          {% endfor%}
+	
+	
+</div>
+
+
 {% endblock %}

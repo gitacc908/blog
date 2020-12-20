@@ -1,17 +1,16 @@
-{% extends 'blog/base.html' %}
-
+{% extends 'base_all.html' %}
+{% load crispy_forms_tags %}
 {% block title %}Create Post{% endblock %}
 
 {% block content %}
-<form method="post">
-	{% csrf_token %}
-	{% for field in form %}
-	<div class="form-group mt-2">
-		{{ field.label }}
-		{{ field }}
-	</div>
-	{% endfor%}
-	<button type="submit" class="btn btn-outline-primary">Create Post</button>
-</form>
-
+<div class="container">
+	<form method="post">
+	
+		{% csrf_token %}
+		{{ form|crispy }}
+	<button type="submit" class="btn btn-outline-primary mb-4 mt-4">Create Post</button>
+	
+	
+	</form>
+</div>
 {% endblock %}

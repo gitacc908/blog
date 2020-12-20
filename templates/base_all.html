@@ -1,80 +1,187 @@
+
 <!doctype html>
-
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>{% block title %}W Post{% endblock %}</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/blog/">
 
-    <title>{% block title %}Hello, world!{% endblock %}</title>
-  </head>
-  <body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Bootstrap core CSS -->
+    <link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'blogs' %}">Blogs <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'tags' %}">Tags</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'create_tag' %}" tabindex="-1" aria-disabled="true">Create Tag</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'create_post' %}" tabindex="-1" aria-disabled="true">Create Post</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+      }
+  }
+</style>
+
+
+<!-- Custom styles for this template -->
+<link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="blog.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          {% if request.user.is_authenticated %}
+          <div class="col-4 pt-1">
+            <a class="btn btn-sm btn-outline-danger" href="{% url 'logout' %}">Logout</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_post' %}">Create Post</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'create_tag' %}">Create Tag</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'tags' %}">Tags</a>
+
+        </div>
+        {% else %}
+          <div class="col-4 pt-1">
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'signup' %}">Sign up</a>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'login' %}">Sign in</a>
+          </div>
+        {%  endif %}
+
+        <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="{% url 'blogs' %}">W-post</a>
+          </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+            <form class="d-flex justify-content-end align-items-center">  
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" name='search'>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-6 offset-md-2">
-                {% block content %}
-                <h1>Hello, content!</h1>
-                {% endblock %}
-
-                {% if is_paginated %}
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item {% if not prev_url %}disabled{% endif %}">
-                                <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            {% for n in page_object.paginator.page_range %}
-
-                            {% if page_object.number == n %}
-                            <li class="page-item active"><a class="page-link" href="?page={{ n }}">{{n}}</a></li>
-                            {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}
-
-                            <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
-                            {% endif %}
-                            {% endfor %}
-                            <li class="page-item {% if not next_url %}disabled{% endif %}">
-                                <a class="page-link" href="{{ next_url }}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                {% endif %}
-            </div>
-        </div>
     </div>
-   
-  </body>
+</header>
+<hr>
+<div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+        {% for tag in tags %}
+        <a class="p-2 link-secondary" href="{{ tag.get_absolute_url }}">#{{ tag }}</a>
+        {% endfor %}
+    </nav>
+
+</div>
+</div>
+
+{% block content %}
+<main class="container">
+
+
+  <div class="row mb-2">
+    {% for post in page_object %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <h3 class="mb-0">{{ post.title }}</h3>
+          <div class="mb-1 text-muted">{{ post.timestamp }}</div>
+          <p class="card-text mb-auto">{{ post.body|truncatechars:100 }}</p>
+          <a href="{{ post.get_absolute_url }}" class="stretched-link">Continue reading</a>
+      </div>
+      <div class="col-auto d-none d-lg-block">
+          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+      </div>
+  </div>
+</div>
+{% endfor %}
+{% if is_paginated %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item {% if not prev_url %}disabled{% endif %}">
+            <a class="page-link" href="{{ prev_url }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for n in page_object.paginator.page_range %}
+
+        {% if page_object.number == n %}
+        <li class="page-item active"><a class="page-link" href="?page={{ n }}">{{n}}</a></li>
+        {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}
+
+        <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+        {% endif %}
+        {% endfor %}
+        <li class="page-item {% if not next_url %}disabled{% endif %}">
+            <a class="page-link" href="{{ next_url }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
+</div>
+
+</main>
+{% endblock content %}
+
+<footer class="bg-light text-center text-lg-start container">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+      <!--Grid column-->
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 class="text-uppercase">Footer</h5>
+
+        <p>
+          If you want to start a new blog or already started one, the next step would be to figure out what to write. Whatever the purpose of a blog is, personal or business, content would play a critical role in blog success.
+      </p>
+  </div>
+  <!--Grid column-->
+
+  <!--Grid column-->
+  <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+    <h5 class="text-uppercase">Footer</h5>
+
+    <p>
+     You need to realize that the internet is oversaturated with textual content. Thus, for your blog posts to stand out you need to invest serious effort to create great content.
+
+     In this article, we will show you how to write your blog posts and make them informative.
+ </p>
+</div>
+<!--Grid column-->
+</div>
+<!--Grid row-->
+</div>
+<!-- Grid container -->
+
+<!-- Copyright -->
+<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2020 Copyright:
+    <a class="text-dark" href="{% url 'blogs' %}">W-post.com</a>
+</div>
+<!-- Copyright -->
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+</body>
 </html>

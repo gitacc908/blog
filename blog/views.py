@@ -7,6 +7,9 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.views import generic
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def allblog(request, slug=None):
@@ -17,12 +20,13 @@ def allblog(request, slug=None):
 
 	else:
 		posts = Post.objects.all()
-	
+
 	if slug:
 		post = Post.objects.get(slug=slug)
-		return render(request, 'blog/detail.html', {'post': post})
+		return render(request, 'blog/detail.html', {'post':post})
+	
 
-	paginator = Paginator(posts, 4)
+	paginator = Paginator(posts, 6)
 	page_number = request.GET.get('page', 1)
 	page = paginator.get_page(page_number)
 
@@ -36,21 +40,24 @@ def allblog(request, slug=None):
 		next_url = f'?page={page.next_page_number()}'
 	else:
 		next_url = ''
+	tags = Tag.objects.all()
 
 	context = {
 		'page_object': page,
 		'is_paginated': is_paginated,
 		'next_url': next_url,
-		'prev_url': prev_url
+		'prev_url': prev_url,
+		'tags': tags
 	}
 
-	return render(request, 'blog/blogs.html', context=context)
+	return render(request, 'base_all.html', context=context)
 
 
 def tags(request, slug=None):
 	#tags = Tag.objects.all()
 	if slug:
 		tag = Tag.objects.get(slug=slug)
+		print('here')
 		return render(request, 'blog/tag_detail.html', {'tag': tag})
 	tags = Tag.objects.all()
 	return render(request, 'blog/tags.html', {'tags': tags})
@@ -122,3 +129,9 @@ def blog_delete(request, slug):
 		return redirect(reverse('blogs'))
 	obj = Post.objects.get(slug=slug)
 	return render(request, 'blog/post_delete.html', {'obj': obj})
+
+
+class SignUpView(generic.CreateView):
+	form_class = UserCreationForm
+	success_url = reverse_lazy('login')
+	template_name = 'registration/signup.html'

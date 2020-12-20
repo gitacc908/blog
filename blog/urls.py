@@ -13,4 +13,6 @@ urlpatterns = [
 	path('blog_detail/<str:slug>/delete/', views.blog_delete, name='blog_delete'),
 	path('blogs/<str:slug>/update/', views.blog_update, name='blog_update'),
 	path('tags/<str:slug>/', views.tags, name='tag_detail'),
+	path('signup/', views.SignUpView.as_view(), name='signup'),
+	
 ]

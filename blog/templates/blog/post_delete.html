@@ -1,13 +1,16 @@
-{% extends 'blog/base.html' %}
+{% extends 'base_all.html' %}
 {% block title %}
 Post delete
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<div class="container">
+	<form method="post">
 	{% csrf_token %}
 	<p>Are you sure you want to delete {{ obj.title|title }} post?</p>
-	<a href="{% url 'blogs' %}">Cancel</a>
-	<button class="btn btn-outline-danger" type="submit">Delete</button>
+	<a href="{% url 'blogs' %}"><button class="btn btn-outline-secondary mb-4" type="submit">Cancel</button></a>
+	<button class="btn btn-outline-danger mb-4" type="submit">Delete</button>
 </form>
+</div>
+
 {% endblock %}
